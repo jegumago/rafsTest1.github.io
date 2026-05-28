@@ -19,4 +19,4 @@ Whenever you update your portfolio (skills, projects, or metrics), use the follo
 
 1. **Navigate to project folder:**
 ```bash
-   cd ~/ProyectosChidos/jesusCV1
+   cd ~/xx/xxxCV1
