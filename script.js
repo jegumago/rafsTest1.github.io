@@ -11,16 +11,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (gateHrBtn && gatekeeperScreen) {
         gateHrBtn.addEventListener('click', () => {
-            // Remove selection shield immediately
             gatekeeperScreen.classList.add('hidden');
-            
-            // Render the Core Main UI directly with no delays
             if (mainUi) {
                 mainUi.classList.remove('hidden');
                 revealSectionsSequentially();
             }
-            
-            // Force fire HR layout modifications instantly
             const hrToggleBtn = document.getElementById('hr-mode-btn');
             if (hrToggleBtn && !isHrMode) {
                 hrToggleBtn.click();
@@ -30,12 +25,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (gateTechBtn && gatekeeperScreen) {
         gateTechBtn.addEventListener('click', () => {
-            // Hide gatekeeper overlay and pass controls into the boot loader
             gatekeeperScreen.classList.add('hidden');
             if (bootScreen) {
                 bootScreen.classList.remove('hidden');
                 printBootLine();
             }
+        });
+    }
+
+    // ==========================================
+    // 0.5 PAGE RESET TRIGGER (RELOAD PAGE)
+    // ==========================================
+    const resetPageBtn = document.getElementById('reset-page-btn');
+    if (resetPageBtn) {
+        resetPageBtn.addEventListener('click', () => {
+            window.location.reload();
         });
     }
 
@@ -244,8 +248,7 @@ document.addEventListener('DOMContentLoaded', () => {
         cyber: {
             hrBtn: "[ SWITCH TO STANDARD CV ]",
             subtitle: "> Application Specialist // DevOps & Cloud // System Administration",
-            contact: "LOC: CDMX // LANG: EN_ADV, ES_NAT // Contact: jegumago@hotmail.com",
-            sec0Title: "[00] SYSTEM_METRICS",
+contact: 'LOC: CDMX // LANG: EN_ADV, ES_NAT // NET_LINK: <a href="https://www.linkedin.com/in/jesusmartinezg95/" target="_blank">linkedin.com/in/jesusmartinezg95/</a>',            sec0Title: "[00] SYSTEM_METRICS",
             lblExp: "EXP_LEVEL", lblZone: "ZONE_DB", lblStatus: "SYS_STATUS",
             sec1Title: "[01] HARDWARE_INVENTORY (SKILLS)",
             sec1Desc: "Select an item slot to extract technical metadata and sub-tools.",
@@ -255,7 +258,7 @@ document.addEventListener('DOMContentLoaded', () => {
         corporate: {
             hrBtn: "[ SWITCH TO HACKER MODE ]",
             subtitle: "Application Specialist & Systems Administrator (DevOps / Cloud Integration)",
-            contact: "Location: Mexico City | Languages: Fluent English, Native Spanish | Email: jegumago@hotmail.com",
+            contact: 'Location: Mexico City | Languages: Fluent English, Native Spanish | LinkedIn: <a href="https://www.linkedin.com/in/jesusmartinezg95/" target="_blank">linkedin.com/in/jesusmartinezg95/</a>',            
             sec0Title: "PROFESSIONAL SUMMARY & METRICS",
             lblExp: "TOTAL EXPERIENCE", lblZone: "LOCATION", lblStatus: "AVAILABILITY",
             sec1Title: "CORE TECHNICAL COMPETENCIES (SKILLS)",
@@ -269,44 +272,44 @@ document.addEventListener('DOMContentLoaded', () => {
         jira: {
             cyberTitle: "Jira_Cloud.cfg", corporateTitle: "Atlassian Jira Cloud Management",
             cyberRarity: "LEGENDARY", corporateRarity: "Expert / Advanced",
-            cyberLevel: "ADVANCED ADMIN", corporateLevel: "Enterprise Administrator[cite: 1]",
-            cyberDesc: "Leads global instance governance[cite: 1]. Manages compound cross-functional project boards, workflow transition conditions, permission schemes, and filters for engineering teams[cite: 1].",
-            corporateDesc: "Senior-level Atlassian administration footprint[cite: 1]. Responsible for architecture governance, designing complex custom workflows, screen layouts, advanced permission schemes, filters, and cross-functional Agile boards[cite: 1]."
+            cyberLevel: "ADVANCED ADMIN", corporateLevel: "Enterprise Administrator",
+            cyberDesc: "Leads global instance governance. Manages compound cross-functional project boards, workflow transition conditions, permission schemes, and filters for engineering teams.",
+            corporateDesc: "Senior-level Atlassian administration footprint. Responsible for architecture governance, designing complex custom workflows, screen layouts, advanced permission schemes, filters, and cross-functional Agile boards."
         },
         linux: {
             cyberTitle: "Linux_Core.bin", corporateTitle: "Linux Systems Administration",
-            cyberRarity: "EPIC", corporateRarity: "Strong Practitioner[cite: 1]",
-            cyberLevel: "SYSADMIN LEVEL", corporateLevel: "Operating Systems Specialist[cite: 1]",
-            cyberDesc: "Proficient administrative kernel foundation[cite: 1]. Handles environment access, file permissions configurations, system services control, and standalone server environments[cite: 1].",
-            corporateDesc: "Experienced in managing enterprise Red Hat Enterprise Linux (RHEL) and Ubuntu Server environments[cite: 1]. Proficient with user access management, standard shell utilities, file permissions, and system services monitoring[cite: 1]."
+            cyberRarity: "EPIC", corporateRarity: "Strong Practitioner",
+            cyberLevel: "SYSADMIN LEVEL", corporateLevel: "Operating Systems Specialist",
+            cyberDesc: "Proficient administrative kernel foundation. Handles environment access, file permissions configurations, system services control, and standalone server environments.",
+            corporateDesc: "Experienced in managing enterprise Red Hat Enterprise Linux (RHEL) and Ubuntu Server environments. Proficient with user access management, standard shell utilities, file permissions, and system services monitoring."
         },
         automation: {
             cyberTitle: "Automation.sh", corporateTitle: "Infrastructure Automation & Scripting",
-            cyberRarity: "EPIC", corporateRarity: "Strong Practitioner[cite: 1]",
-            cyberLevel: "88% SYNC", corporateLevel: "Intermediate to Advanced[cite: 1]",
-            cyberDesc: "Constructs custom Bash orchestration scripts and idempotent Ansible configuration playbooks to deploy application servers automatically and eliminate operational drag[cite: 1].",
-            corporateDesc: "Focuses on minimizing manual intervention by developing modular shell scripts (Bash) and writing declarative Ansible playbooks to provision and configure remote environments consistently[cite: 1]."
+            cyberRarity: "EPIC", corporateRarity: "Strong Practitioner",
+            cyberLevel: "88% SYNC", corporateLevel: "Intermediate to Advanced",
+            cyberDesc: "Constructs custom Bash orchestration scripts and idempotent Ansible configuration playbooks to deploy application servers automatically and eliminate operational drag.",
+            corporateDesc: "Focuses on minimizing manual intervention by developing modular shell scripts (Bash) and writing declarative Ansible playbooks to provision and configure remote environments consistently."
         },
         identity: {
             cyberTitle: "IAM_Access.key", corporateTitle: "Identity & Access Management (IAM)",
-            cyberRarity: "RARE", corporateRarity: "Intermediate[cite: 1]",
-            cyberLevel: "ENTERPRISE PRO", corporateLevel: "Enterprise Security Operations[cite: 1]",
-            cyberDesc: "Enforces full secure user lifecycles[cite: 1]. Administers Active Directory, OKTA, PingID, and RSA tokens to safely govern provisioning, offboarding, and application group mapping[cite: 1].",
-            corporateDesc: "Manages complete corporate user lifecycles including secure onboarding and offboarding procedures[cite: 1]. Proficient with enterprise identity providers such as Active Directory, Okta, PingID, and RSA access tokens[cite: 1]."
+            cyberRarity: "RARE", corporateRarity: "Intermediate",
+            cyberLevel: "ENTERPRISE PRO", corporateLevel: "Enterprise Security Operations",
+            cyberDesc: "Enforces full secure user lifecycles. Administers Active Directory, OKTA, PingID, and RSA tokens to safely govern provisioning, offboarding, and application group mapping.",
+            corporateDesc: "Manages complete corporate user lifecycles including secure onboarding and offboarding procedures. Proficient with enterprise identity providers such as Active Directory, Okta, PingID, and RSA access tokens."
         },
         cloud: {
             cyberTitle: "Cloud_Dev.env", corporateTitle: "Cloud Infrastructure (AWS & IaC)",
-            cyberRarity: "RARE", corporateRarity: "Familiar / Growing[cite: 1]",
-            cyberLevel: "IN PROGRESS", corporateLevel: "Active Learning Path[cite: 1]",
-            cyberDesc: "Currently sharpening modern delivery patterns[cite: 1]. Spinning up modular EC2 compute cells, secure S3 spaces, IAM security configurations, and coding baseline Terraform logic[cite: 1].",
-            corporateDesc: "Actively training and expanding into modern cloud architectures[cite: 1]. Hands-on experience creating core Amazon Web Services components like EC2 instances, S3 storage buckets, IAM roles, and basic Terraform configurations[cite: 1]."
+            cyberRarity: "RARE", corporateRarity: "Familiar / Growing",
+            cyberLevel: "IN PROGRESS", corporateLevel: "Active Learning Path",
+            cyberDesc: "Currently sharpening modern delivery patterns. Spinning up modular EC2 compute cells, secure S3 spaces, IAM security configurations, and coding baseline Terraform logic.",
+            corporateDesc: "Actively training and expanding into modern cloud architectures. Hands-on experience creating core Amazon Web Services components like EC2 instances, S3 storage buckets, IAM roles, and basic Terraform configurations."
         },
         infra: {
             cyberTitle: "Endpoint_Mgmt.sys", corporateTitle: "Enterprise Endpoint Infrastructure",
-            cyberRarity: "COMMON", corporateRarity: "Foundational[cite: 1]",
-            cyberLevel: "95% COMPLIANT", corporateLevel: "Legacy Systems Expert[cite: 1]",
-            cyberDesc: "Managed global enterprise architecture delivery pipelines using tools like SCCM, Citrix hypervisors, InTune profile suites, and ServiceNow SLA monitors[cite: 1].",
-            corporateDesc: "Background managing enterprise application delivery pipelines and remote workstations using systems management tools including Microsoft SCCM, Citrix infrastructure, Intune profiles, and ServiceNow tracking platforms[cite: 1]."
+            cyberRarity: "COMMON", corporateRarity: "Foundational",
+            cyberLevel: "95% COMPLIANT", corporateLevel: "Legacy Systems Expert",
+            cyberDesc: "Managed global enterprise architecture delivery pipelines using tools like SCCM, Citrix hypervisors, InTune profile suites, and ServiceNow SLA monitors.",
+            corporateDesc: "Background managing enterprise application delivery pipelines and remote workstations using systems management tools including Microsoft SCCM, Citrix infrastructure, Intune profiles, and ServiceNow tracking platforms."
         }
     };
 
@@ -332,7 +335,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             hrModeBtn.textContent = corporateTranslation[mode].hrBtn;
             document.getElementById('cv-subtitle').textContent = corporateTranslation[mode].subtitle;
-            document.getElementById('cv-contact').textContent = corporateTranslation[mode].contact;
+            document.getElementById('cv-contact').innerHTML = corporateTranslation[mode].contact;
             document.getElementById('sec0-title').textContent = corporateTranslation[mode].sec0Title;
             document.getElementById('lbl-exp').textContent = corporateTranslation[mode].lblExp;
             document.getElementById('lbl-zone').textContent = corporateTranslation[mode].lblZone;
@@ -385,10 +388,115 @@ document.addEventListener('DOMContentLoaded', () => {
     // 3. TRANSACTION LOG DECRYPTION ENGINE
     // ==========================================
     const experienceDatabase = {
-        "role-tideworks": "OPERATION: TIDEWORKS // Leads enterprise Jira Cloud administration blueprints across global engineering segments[cite: 1]. Preserves complete user lifecycle security maps across Active Directory nodes and integrated developer tool licenses[cite: 1]. Manages automated sprint lifecycle schedules, backlog filters, and deploys SSH logic to decrease manual infrastructure routines[cite: 1].",
-        "role-tcs": "OPERATION: TATA CONSULTANCY SERVICES // Dispatched Tier 2 infrastructure core engineering across wide industrial enterprise networks[cite: 1]. Controlled secure authentication keys (Active Directory, RSA tokens, PingID, VPN portals) and deployed application layers over corporate pools via SCCM arrays, virtualized Citrix platforms, and InTune profiles[cite: 1].",
-        "role-mahindra": "OPERATION: TECH MAHINDRA // Governed ongoing stability matrix across isolated Windows architectures, Citrix sandbox clusters, core Mainframe access links, and Cisco routing networks[cite: 1]. Identified critical platform blockages and escalated infrastructure incidents inside ServiceNow grids while producing compliance metrics logs[cite: 1].",
-        "role-compucom": "OPERATION: COMPUCOM // Administered unified hardware support layers across multi-architecture nodes (Windows, iOS, Android endpoints)[cite: 1]. Generated internal knowledge assets and conducted interactive team training blueprints regarding Active Directory operations, Citrix frameworks, OKTA mapping, and SCCM usage[cite: 1]."
+        "role-tideworks": `
+            <div class="terminal-experience-box">
+                <div class="experience-header">
+                    <span class="role-title">Application Specialist // Tideworks</span>
+                    <span class="role-date">2022 - PRESENT</span>
+                </div>
+                <div class="experience-metadata">
+                    <span class="tag-accent">CORE_DECK</span>
+                    <span class="tag-divider">//</span>
+                    <span class="tag-secondary">REMOTE</span>
+                </div>
+                <hr class="box-divider">
+                <div class="experience-content">
+                    <div class="decryption-status-line">
+                        <span class="status-indicator-dot"></span>
+                        <span class="status-text">[ ACCESS GRANTED ]</span>
+                    </div>
+                    <div class="company-log-block">
+                        <span class="company-name">Company: TIDEWORKS //</span>
+                        <ul class="clean-log-bullets">
+                            <li>Leads enterprise Jira Cloud administration blueprints across global engineering segments.</li>
+                            <li>Preserves complete user lifecycle security maps across Active Directory nodes and integrated developer tool licenses.</li>
+                            <li>Manages automated sprint lifecycle schedules, backlog filters, and deploys SSH logic to decrease manual infrastructure routines.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>`,
+        
+        "role-tcs": `
+            <div class="terminal-experience-box">
+                <div class="experience-header">
+                    <span class="role-title">Assistant Systems Engineer L1.5 // TCS</span>
+                    <span class="role-date">2020 - 2022</span>
+                </div>
+                <div class="experience-metadata">
+                    <span class="tag-accent">INFRA_DECK</span>
+                    <span class="tag-divider">//</span>
+                    <span class="tag-secondary">GLOBAL_ENTERPRISE</span>
+                </div>
+                <hr class="box-divider">
+                <div class="experience-content">
+                    <div class="decryption-status-line">
+                        <span class="status-indicator-dot"></span>
+                        <span class="status-text">[ ACCESS GRANTED ]</span>
+                    </div>
+                    <div class="company-log-block">
+                        <span class="company-name">Company: TATA CONSULTANCY SERVICES //</span>
+                        <ul class="clean-log-bullets">
+                            <li>Dispatched Tier 2 infrastructure core engineering across wide industrial enterprise networks.</li>
+                            <li>Controlled secure authentication keys via Active Directory, RSA tokens, PingID, and secure VPN portals.</li>
+                            <li>Deployed application layers over corporate pools via SCCM arrays, virtualized Citrix platforms, and InTune profiles.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>`,
+        
+        "role-mahindra": `
+            <div class="terminal-experience-box">
+                <div class="experience-header">
+                    <span class="role-title">Tech Support Level I // Tech Mahindra</span>
+                    <span class="role-date">2019 - 2020</span>
+                </div>
+                <div class="experience-metadata">
+                    <span class="tag-accent">VM_DECK</span>
+                    <span class="tag-divider">//</span>
+                    <span class="tag-secondary">TELEPHONY_MONITOR</span>
+                </div>
+                <hr class="box-divider">
+                <div class="experience-content">
+                    <div class="decryption-status-line">
+                        <span class="status-indicator-dot"></span>
+                        <span class="status-text">[ ACCESS GRANTED ]</span>
+                    </div>
+                    <div class="company-log-block">
+                        <span class="company-name">Company: TECH MAHINDRA //</span>
+                        <ul class="clean-log-bullets">
+                            <li>Governed ongoing stability matrix across isolated Windows architectures, Citrix sandbox clusters, core Mainframe access links, and Cisco routing networks.</li>
+                            <li>Identified critical platform blockages and escalated infrastructure incidents inside ServiceNow grids while producing compliance metrics logs.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>`,
+        
+        "role-compucom": `
+            <div class="terminal-experience-box">
+                <div class="experience-header">
+                    <span class="role-title">Service Experience // Compucom</span>
+                    <span class="role-date">2019 - 2019</span>
+                </div>
+                <div class="experience-metadata">
+                    <span class="tag-accent">ENDPOINT_DECK</span>
+                    <span class="tag-divider">//</span>
+                    <span class="tag-secondary">TRAINING_NODES</span>
+                </div>
+                <hr class="box-divider">
+                <div class="experience-content">
+                    <div class="decryption-status-line">
+                        <span class="status-indicator-dot"></span>
+                        <span class="status-text">[ ACCESS GRANTED ]</span>
+                    </div>
+                    <div class="company-log-block">
+                        <span class="company-name">Company: COMPUCOM //</span>
+                        <ul class="clean-log-bullets">
+                            <li>Administered unified hardware support layers across multi-architecture nodes including Windows, iOS, and Android endpoints.</li>
+                            <li>Generated internal knowledge assets and conducted interactive team training blueprints regarding Active Directory operations, Citrix frameworks, OKTA mapping, and SCCM usage.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>`
     };
 
     const decryptButtons = document.querySelectorAll('.action-decrypt');
@@ -399,8 +507,10 @@ document.addEventListener('DOMContentLoaded', () => {
         const fullText = experienceDatabase[targetId];
         if (!logContainer || !fullText) return;
 
-        btn.textContent = "[ ACCESS GRANTED ]";
-        btn.classList.add('decrypted');
+        if (btn) {
+            btn.textContent = "[ ACCESS GRANTED ]";
+            btn.classList.add('decrypted');
+        }
         logContainer.classList.remove('encrypted');
 
         if (instant) {
@@ -420,15 +530,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     scrambleCount++;
                     setTimeout(runScramble, 30);
                 } else {
-                    let charIndex = 0;
-                    function typeCharacter() {
-                        if (charIndex < fullText.length) {
-                            logContainer.innerHTML += fullText.charAt(charIndex);
-                            charIndex++;
-                            setTimeout(typeCharacter, 8);
-                        }
-                    }
-                    typeCharacter();
+                    logContainer.innerHTML = fullText;
                 }
             }
             runScramble();
@@ -446,7 +548,7 @@ document.addEventListener('DOMContentLoaded', () => {
         decryptAllBtn.addEventListener('click', () => {
             decryptButtons.forEach(button => {
                 const targetId = button.getAttribute('data-target');
-                decryptLog(button, targetId, true);
+                decryptLog(null, targetId, true);
             });
             decryptAllBtn.textContent = "[ ALL_LOGS_DECRYPTED ]";
             decryptAllBtn.style.borderColor = "var(--accent-neon)";
