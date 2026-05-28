@@ -1,7 +1,46 @@
 document.addEventListener('DOMContentLoaded', () => {
     
     // ==========================================
-    // 1. TERMINAL BOOT SEQUENCE ENGINE WITH ENTER INTERACTION
+    // 0. GATEKEEPER MODE SELECTION MATRIX
+    // ==========================================
+    const gatekeeperScreen = document.getElementById('gatekeeper-screen');
+    const gateHrBtn = document.getElementById('gate-hr-btn');
+    const gateTechBtn = document.getElementById('gate-tech-btn');
+    const bootScreen = document.getElementById('boot-screen');
+    const mainUi = document.getElementById('main-ui');
+
+    if (gateHrBtn && gatekeeperScreen) {
+        gateHrBtn.addEventListener('click', () => {
+            // Remove selection shield immediately
+            gatekeeperScreen.classList.add('hidden');
+            
+            // Render the Core Main UI directly with no delays
+            if (mainUi) {
+                mainUi.classList.remove('hidden');
+                revealSectionsSequentially();
+            }
+            
+            // Force fire HR layout modifications instantly
+            const hrToggleBtn = document.getElementById('hr-mode-btn');
+            if (hrToggleBtn && !isHrMode) {
+                hrToggleBtn.click();
+            }
+        });
+    }
+
+    if (gateTechBtn && gatekeeperScreen) {
+        gateTechBtn.addEventListener('click', () => {
+            // Hide gatekeeper overlay and pass controls into the boot loader
+            gatekeeperScreen.classList.add('hidden');
+            if (bootScreen) {
+                bootScreen.classList.remove('hidden');
+                printBootLine();
+            }
+        });
+    }
+
+    // ==========================================
+    // 1. TERMINAL BOOT SEQUENCE ENGINE WITH BYPASS
     // ==========================================
     const bootLines = [
         "Initializing MARTÍNEZ_CORE security handshake...",
@@ -14,37 +53,45 @@ document.addEventListener('DOMContentLoaded', () => {
     ];
 
     const bootLog = document.getElementById('boot-log');
-    const bootScreen = document.getElementById('boot-screen');
-    const mainUi = document.getElementById('main-ui');
+    const skipBootBtn = document.getElementById('skip-boot-btn');
     let lineIndex = 0;
     let bootComplete = false;
+    let bootTimeout;
 
     function printBootLine() {
         if (lineIndex < bootLines.length) {
             const p = document.createElement('p');
             p.textContent = `> ${bootLines[lineIndex]}`;
-            bootLog.appendChild(p);
-            bootScreen.scrollTop = bootScreen.scrollHeight;
+            if (bootLog) bootLog.appendChild(p);
+            if (bootScreen) bootScreen.scrollTop = bootScreen.scrollHeight;
             lineIndex++;
-            setTimeout(printBootLine, 200);
+            bootTimeout = setTimeout(printBootLine, 200);
         } else {
-            // Create the flashing interaction prompt
             const prompt = document.createElement('p');
             prompt.className = "blink-prompt";
             prompt.textContent = ">>> PRESS [ENTER] TO ACCESS USER_DECK_";
-            bootLog.appendChild(prompt);
-            bootScreen.scrollTop = bootScreen.scrollHeight;
-            
-            // Enable the keyboard intercept
+            if (bootLog) bootLog.appendChild(prompt);
+            if (bootScreen) bootScreen.scrollTop = bootScreen.scrollHeight;
             bootComplete = true;
         }
     }
-    printBootLine();
 
-    // Global event listener waiting for the Enter key to initiate the login bridge
+    if (skipBootBtn) {
+        skipBootBtn.addEventListener('click', () => {
+            clearTimeout(bootTimeout);
+            bootComplete = false;
+            if (bootScreen) bootScreen.classList.add('hidden');
+            if (mainUi) {
+                mainUi.classList.remove('hidden');
+                const sections = document.querySelectorAll('.staggered-reveal');
+                sections.forEach(s => s.classList.add('visible'));
+            }
+        });
+    }
+
     window.addEventListener('keydown', function handleInitialEnter(e) {
         if (bootComplete && e.key === 'Enter') {
-            window.removeEventListener('keydown', handleInitialEnter); // Remove listener to avoid conflict
+            window.removeEventListener('keydown', handleInitialEnter);
             bootComplete = false; 
             
             const blinker = document.querySelector('.blink-prompt');
@@ -53,7 +100,6 @@ document.addEventListener('DOMContentLoaded', () => {
             const loginContainer = document.getElementById('login-prompt');
             if (!loginContainer) return;
 
-            // --- Phase 1: Request User Identity Input ---
             loginContainer.innerHTML = `
                 <p>> ATTENTION: UNKNOWN NODE DETECTED ON NET_GRID.</p>
                 <div class="terminal-input-line">
@@ -62,19 +108,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 </div>
             `;
 
-            // Auto-focus the input box for immediate typing
             const agentInput = document.getElementById('agent-input');
             if (agentInput) agentInput.focus();
 
-            // Listen for the second Enter press inside the input field
             agentInput.addEventListener('keydown', (inputEvent) => {
                 if (inputEvent.key === 'Enter' && agentInput.value.trim() !== "") {
                     const agentName = agentInput.value.trim().toUpperCase();
-                    
-                    // Freeze the field and lock interaction
                     agentInput.disabled = true;
                     
-                    // --- Phase 2: Brute-Force Password Simulation ---
                     const sequenceDiv = document.createElement('div');
                     sequenceDiv.style.marginTop = "15px";
                     sequenceDiv.innerHTML = `
@@ -100,8 +141,6 @@ document.addEventListener('DOMContentLoaded', () => {
                             clearInterval(crackInterval);
                             passMatrix.textContent = "[ ACCESS_GRANTED // TOKENS_VALIDATED ]";
                             passMatrix.style.color = "var(--accent-neon)";
-                            
-                            // --- Phase 3: Incrementing Loading Bar Module ---
                             initializeLoadingBar(loginContainer);
                         }
                     }, 90);
@@ -110,7 +149,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Simulated Loading Progress Bar Function
     function initializeLoadingBar(container) {
         const loadWrapper = document.createElement('div');
         loadWrapper.className = "loading-bar-container";
@@ -119,16 +157,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const progressText = document.getElementById('progress-text');
         let currentProgress = 0;
-        const totalBars = 20; // Width of our block bar segment
+        const totalBars = 20;
 
         const loadInterval = setInterval(() => {
             if (currentProgress <= 100) {
                 const filledCount = Math.round((currentProgress / 100) * totalBars);
                 const emptyCount = totalBars - filledCount;
-                
                 const barString = "█".repeat(filledCount) + "░".repeat(emptyCount);
                 progressText.textContent = `[${barString}] ${currentProgress}%`;
-                
                 currentProgress += 5;
             } else {
                 clearInterval(loadInterval);
@@ -139,167 +175,282 @@ document.addEventListener('DOMContentLoaded', () => {
                 secureLaunch.textContent = ">>> ENVIRONMENT RENDER SUCCESSFUL. BREAKING SHIELD.";
                 container.appendChild(secureLaunch);
 
-                // Transition viewport fade and run the staggered section reveals
                 setTimeout(() => {
-                    bootScreen.classList.add('hidden');
-                    mainUi.classList.remove('hidden');
-                    
-                    // Trigger cascading section reveal
-                    revealSectionsSequentially();
+                    if (bootScreen) bootScreen.classList.add('hidden');
+                    if (mainUi) {
+                        mainUi.classList.remove('hidden');
+                        revealSectionsSequentially();
+                    }
                 }, 800);
             }
         }, 60);
     }
 
-    // New cascading layout animation engine
     function revealSectionsSequentially() {
         const sections = document.querySelectorAll('.staggered-reveal');
-        
         sections.forEach((section, index) => {
             setTimeout(() => {
                 section.classList.add('visible');
-            }, index * 450); // Each section builds exactly 450ms after the previous one finishes
+            }, index * 250);
         });
     }
 
     // ==========================================
-    // 2. CORE OVERCLOCK TOGGLE MECHANISM
+    // 2. CORE OVERCLOCK TOGGLE
     // ==========================================
     const overclockBtn = document.getElementById('overclock-btn');
     const statusText = document.getElementById('sys-status-text');
 
-    overclockBtn.addEventListener('click', () => {
-        document.body.classList.toggle('overclocked');
-        if (document.body.classList.contains('overclocked')) {
-            statusText.textContent = "OVERCLOCKED // UNSTABLE";
-            overclockBtn.textContent = "RESTORE_DEFAULT";
-        } else {
-            statusText.textContent = "NOMINAL";
-            overclockBtn.textContent = "CORE_OVERCLOCK";
-        }
-    });
+    if (overclockBtn) {
+        overclockBtn.addEventListener('click', () => {
+            document.body.classList.toggle('overclocked');
+            if (document.body.classList.contains('overclocked')) {
+                if (statusText) statusText.textContent = "OVERCLOCKED // UNSTABLE";
+                overclockBtn.textContent = "RESTORE_DEFAULT";
+            } else {
+                if (statusText) statusText.textContent = "NOMINAL";
+                overclockBtn.textContent = "CORE_OVERCLOCK";
+            }
+        });
+    }
 
     // ==========================================
-    // 3. ACTUAL RESUME INVENTORY DATA
+    // 2.5 ACCESSIBILITY & UTILITY CONTROLS
     // ==========================================
-    const itemData = {
-        jira: {
-            title: "Jira_Cloud.cfg",
-            rarity: "LEGENDARY",
-            level: "ADVANCED ADMIN",
-            desc: "Leads global instance governance. Manages compound cross-functional project boards, workflow transition conditions, permission schemes, and filters for engineering teams."
+    const toggleFontBtn = document.getElementById('toggle-font-btn');
+    const toggleThemeBtn = document.getElementById('toggle-theme-btn');
+
+    if (toggleFontBtn) {
+        toggleFontBtn.addEventListener('click', () => {
+            document.body.classList.toggle('readable-font');
+            toggleFontBtn.textContent = document.body.classList.contains('readable-font') ? "[ TT_TERMINAL_FONT ]" : "[ AA_READABLE_FONT ]";
+        });
+    }
+
+    if (toggleThemeBtn) {
+        toggleThemeBtn.addEventListener('click', () => {
+            document.body.classList.toggle('high-contrast-mode');
+            toggleThemeBtn.textContent = document.body.classList.contains('high-contrast-mode') ? "[ COLOR_MATRIX: ULTRA_MATRIX ]" : "[ COLOR_MATRIX: DEFAULT ]";
+        });
+    }
+
+    // ==========================================
+    // 2.6 HR MODE / CORPORATE CV TRANSLATION ENGINE
+    // ==========================================
+    const hrModeBtn = document.getElementById('hr-mode-btn');
+    let isHrMode = false;
+
+    const corporateTranslation = {
+        cyber: {
+            hrBtn: "[ SWITCH TO STANDARD CV ]",
+            subtitle: "> Application Specialist // DevOps & Cloud // System Administration",
+            contact: "LOC: CDMX // LANG: EN_ADV, ES_NAT // Contact: jegumago@hotmail.com",
+            sec0Title: "[00] SYSTEM_METRICS",
+            lblExp: "EXP_LEVEL", lblZone: "ZONE_DB", lblStatus: "SYS_STATUS",
+            sec1Title: "[01] HARDWARE_INVENTORY (SKILLS)",
+            sec1Desc: "Select an item slot to extract technical metadata and sub-tools.",
+            lblRarity: "RARITY: ", lblLevel: "SKILL_LEVEL: ",
+            sec2Title: "[02] CONTRACT_LOG (EXPERIENCE_HISTORY)"
         },
-        linux: {
-            title: "Linux_Core.bin (Ubuntu/RHEL)",
-            rarity: "EPIC",
-            level: "SYSADMIN LEVEL",
-            desc: "Proficient administrative kernel foundation. Handles environment access, file permissions configurations, system services control, and standalone server environments."
-        },
-        automation: {
-            title: "Automation.sh (Ansible/Bash)",
-            rarity: "EPIC",
-            level: "88% SYNC",
-            desc: "Constructs custom Bash orchestration scripts and idempotent Ansible configuration playbooks to deploy application servers automatically and eliminate operational drag."
-        },
-        identity: {
-            title: "IAM_Access.key (AD/OKTA)",
-            rarity: "RARE",
-            level: "ENTERPRISE PRO",
-            desc: "Enforces full secure user lifecycles. Administers Active Directory, OKTA, PingID, and RSA tokens to safely govern provisioning, offboarding, and application group mapping."
-        },
-        cloud: {
-            title: "Cloud_Dev.env (AWS/Terraform)",
-            rarity: "RARE",
-            level: "IN PROGRESS",
-            desc: "Currently sharpening modern delivery patterns. Spinning up modular EC2 compute cells, secure S3 spaces, IAM security configurations, and coding baseline Terraform logic."
-        },
-        infra: {
-            title: "Endpoint_Mgmt.sys (SCCM/Citrix)",
-            rarity: "COMMON",
-            level: "95% COMPLIANT",
-            desc: "Managed global enterprise architecture delivery pipelines using tools like SCCM, Citrix hypervisors, InTune profile suites, and ServiceNow SLA monitors."
+        corporate: {
+            hrBtn: "[ SWITCH TO HACKER MODE ]",
+            subtitle: "Application Specialist & Systems Administrator (DevOps / Cloud Integration)",
+            contact: "Location: Mexico City | Languages: Fluent English, Native Spanish | Email: jegumago@hotmail.com",
+            sec0Title: "PROFESSIONAL SUMMARY & METRICS",
+            lblExp: "TOTAL EXPERIENCE", lblZone: "LOCATION", lblStatus: "AVAILABILITY",
+            sec1Title: "CORE TECHNICAL COMPETENCIES (SKILLS)",
+            sec1Desc: "Click on any technology profile asset below to view administrative experience details.",
+            lblRarity: "EXPERIENCE LEVEL: ", lblLevel: "PROFICIENCY: ",
+            sec2Title: "PROFESSIONAL WORK HISTORY"
         }
     };
 
-    const slots = document.querySelectorAll('.inv-slot');
-    const displayTitle = document.getElementById('item-title');
-    const displayRarity = document.getElementById('item-rarity');
-    const displayLevel = document.getElementById('item-level');
-    const displayDesc = document.getElementById('item-desc');
+    const enhancedItemData = {
+        jira: {
+            cyberTitle: "Jira_Cloud.cfg", corporateTitle: "Atlassian Jira Cloud Management",
+            cyberRarity: "LEGENDARY", corporateRarity: "Expert / Advanced",
+            cyberLevel: "ADVANCED ADMIN", corporateLevel: "Enterprise Administrator[cite: 1]",
+            cyberDesc: "Leads global instance governance[cite: 1]. Manages compound cross-functional project boards, workflow transition conditions, permission schemes, and filters for engineering teams[cite: 1].",
+            corporateDesc: "Senior-level Atlassian administration footprint[cite: 1]. Responsible for architecture governance, designing complex custom workflows, screen layouts, advanced permission schemes, filters, and cross-functional Agile boards[cite: 1]."
+        },
+        linux: {
+            cyberTitle: "Linux_Core.bin", corporateTitle: "Linux Systems Administration",
+            cyberRarity: "EPIC", corporateRarity: "Strong Practitioner[cite: 1]",
+            cyberLevel: "SYSADMIN LEVEL", corporateLevel: "Operating Systems Specialist[cite: 1]",
+            cyberDesc: "Proficient administrative kernel foundation[cite: 1]. Handles environment access, file permissions configurations, system services control, and standalone server environments[cite: 1].",
+            corporateDesc: "Experienced in managing enterprise Red Hat Enterprise Linux (RHEL) and Ubuntu Server environments[cite: 1]. Proficient with user access management, standard shell utilities, file permissions, and system services monitoring[cite: 1]."
+        },
+        automation: {
+            cyberTitle: "Automation.sh", corporateTitle: "Infrastructure Automation & Scripting",
+            cyberRarity: "EPIC", corporateRarity: "Strong Practitioner[cite: 1]",
+            cyberLevel: "88% SYNC", corporateLevel: "Intermediate to Advanced[cite: 1]",
+            cyberDesc: "Constructs custom Bash orchestration scripts and idempotent Ansible configuration playbooks to deploy application servers automatically and eliminate operational drag[cite: 1].",
+            corporateDesc: "Focuses on minimizing manual intervention by developing modular shell scripts (Bash) and writing declarative Ansible playbooks to provision and configure remote environments consistently[cite: 1]."
+        },
+        identity: {
+            cyberTitle: "IAM_Access.key", corporateTitle: "Identity & Access Management (IAM)",
+            cyberRarity: "RARE", corporateRarity: "Intermediate[cite: 1]",
+            cyberLevel: "ENTERPRISE PRO", corporateLevel: "Enterprise Security Operations[cite: 1]",
+            cyberDesc: "Enforces full secure user lifecycles[cite: 1]. Administers Active Directory, OKTA, PingID, and RSA tokens to safely govern provisioning, offboarding, and application group mapping[cite: 1].",
+            corporateDesc: "Manages complete corporate user lifecycles including secure onboarding and offboarding procedures[cite: 1]. Proficient with enterprise identity providers such as Active Directory, Okta, PingID, and RSA access tokens[cite: 1]."
+        },
+        cloud: {
+            cyberTitle: "Cloud_Dev.env", corporateTitle: "Cloud Infrastructure (AWS & IaC)",
+            cyberRarity: "RARE", corporateRarity: "Familiar / Growing[cite: 1]",
+            cyberLevel: "IN PROGRESS", corporateLevel: "Active Learning Path[cite: 1]",
+            cyberDesc: "Currently sharpening modern delivery patterns[cite: 1]. Spinning up modular EC2 compute cells, secure S3 spaces, IAM security configurations, and coding baseline Terraform logic[cite: 1].",
+            corporateDesc: "Actively training and expanding into modern cloud architectures[cite: 1]. Hands-on experience creating core Amazon Web Services components like EC2 instances, S3 storage buckets, IAM roles, and basic Terraform configurations[cite: 1]."
+        },
+        infra: {
+            cyberTitle: "Endpoint_Mgmt.sys", corporateTitle: "Enterprise Endpoint Infrastructure",
+            cyberRarity: "COMMON", corporateRarity: "Foundational[cite: 1]",
+            cyberLevel: "95% COMPLIANT", corporateLevel: "Legacy Systems Expert[cite: 1]",
+            cyberDesc: "Managed global enterprise architecture delivery pipelines using tools like SCCM, Citrix hypervisors, InTune profile suites, and ServiceNow SLA monitors[cite: 1].",
+            corporateDesc: "Background managing enterprise application delivery pipelines and remote workstations using systems management tools including Microsoft SCCM, Citrix infrastructure, Intune profiles, and ServiceNow tracking platforms[cite: 1]."
+        }
+    };
 
-    slots.forEach(slot => {
-        slot.addEventListener('click', (e) => {
-            slots.forEach(s => s.classList.remove('active'));
-            e.target.classList.add('active');
+    if (hrModeBtn) {
+        hrModeBtn.addEventListener('click', () => {
+            isHrMode = !isHrMode;
+            const mode = isHrMode ? 'corporate' : 'cyber';
 
-            const itemKey = e.target.getAttribute('data-item');
-            const data = itemData[itemKey];
-
-            if(data) {
-                displayTitle.textContent = data.title;
-                displayRarity.textContent = data.rarity;
-                displayLevel.textContent = data.level;
-                displayDesc.textContent = data.desc;
+            if (isHrMode) {
+                document.body.classList.add('readable-font');
+                document.body.classList.add('high-contrast-mode');
+                if (toggleFontBtn) toggleFontBtn.textContent = "[ TT_TERMINAL_FONT ]";
+                if (toggleThemeBtn) toggleThemeBtn.textContent = "[ COLOR_MATRIX: DEFAULT ]";
+                
+                const decryptAllBtn = document.getElementById('decrypt-all-btn');
+                if (decryptAllBtn) decryptAllBtn.click();
+            } else {
+                document.body.classList.remove('readable-font');
+                document.body.classList.remove('high-contrast-mode');
+                if (toggleFontBtn) toggleFontBtn.textContent = "[ AA_READABLE_FONT ]";
+                if (toggleThemeBtn) toggleThemeBtn.textContent = "[ COLOR_MATRIX: DEFAULT ]";
             }
+
+            hrModeBtn.textContent = corporateTranslation[mode].hrBtn;
+            document.getElementById('cv-subtitle').textContent = corporateTranslation[mode].subtitle;
+            document.getElementById('cv-contact').textContent = corporateTranslation[mode].contact;
+            document.getElementById('sec0-title').textContent = corporateTranslation[mode].sec0Title;
+            document.getElementById('lbl-exp').textContent = corporateTranslation[mode].lblExp;
+            document.getElementById('lbl-zone').textContent = corporateTranslation[mode].lblZone;
+            document.getElementById('lbl-status').textContent = corporateTranslation[mode].lblStatus;
+            document.getElementById('sec1-title').textContent = corporateTranslation[mode].sec1Title;
+            document.getElementById('sec1-desc').textContent = corporateTranslation[mode].sec1Desc;
+            document.getElementById('sec2-title').textContent = corporateTranslation[mode].sec2Title;
+
+            const statusText = document.getElementById('sys-status-text');
+            if (statusText) statusText.textContent = isHrMode ? "AVAILABLE / ACTIVE" : "NOMINAL";
+
+            const slots = document.querySelectorAll('.inv-slot');
+            slots.forEach(slot => {
+                const itemKey = slot.getAttribute('data-item');
+                if (enhancedItemData[itemKey]) {
+                    slot.textContent = isHrMode ? enhancedItemData[itemKey].corporateTitle : enhancedItemData[itemKey].cyberTitle;
+                }
+            });
+
+            const activeSlot = document.querySelector('.inv-slot.active');
+            if (activeSlot) {
+                const itemKey = activeSlot.getAttribute('data-item');
+                refreshDisplayBlock(itemKey, mode);
+            }
+        });
+    }
+
+    function refreshDisplayBlock(itemKey, mode) {
+        const data = enhancedItemData[itemKey];
+        if (!data) return;
+        
+        document.getElementById('item-title').textContent = isHrMode ? data.corporateTitle : data.cyberTitle;
+        document.getElementById('lbl-rarity').innerHTML = corporateTranslation[mode].lblRarity + `<span class="text-accent" id="item-rarity">${isHrMode ? data.corporateRarity : data.cyberRarity}</span>`;
+        document.getElementById('lbl-level').innerHTML = corporateTranslation[mode].lblLevel + `<span id="item-level">${isHrMode ? data.corporateLevel : data.cyberLevel}</span>`;
+        document.getElementById('item-desc').textContent = isHrMode ? data.corporateDesc : data.cyberDesc;
+    }
+
+    const inventorySlots = document.querySelectorAll('.inv-slot');
+    inventorySlots.forEach(slot => {
+        slot.addEventListener('click', (e) => {
+            inventorySlots.forEach(s => s.classList.remove('active'));
+            e.target.classList.add('active');
+            const itemKey = e.target.getAttribute('data-item');
+            const mode = isHrMode ? 'corporate' : 'cyber';
+            refreshDisplayBlock(itemKey, mode);
         });
     });
 
     // ==========================================
-    // 4. MANUAL TRIGGER CLOCK DECRYPTION ENGINE
+    // 3. TRANSACTION LOG DECRYPTION ENGINE
     // ==========================================
     const experienceDatabase = {
-        "role-tideworks": "OPERATION: TIDEWORKS // Leads enterprise Jira Cloud administration blueprints across global engineering segments. Preserves complete user lifecycle security maps across Active Directory nodes and integrated developer tool licenses. Manages automated sprint lifecycle schedules, backlog filters, and deploys SSH logic to decrease manual infrastructure routines.",
-        "role-tcs": "OPERATION: TATA CONSULTANCY SERVICES // Dispatched Tier 2 infrastructure core engineering across wide industrial enterprise networks. Controlled secure authentication keys (Active Directory, RSA tokens, PingID, VPN portals) and deployed application layers over corporate pools via SCCM arrays, virtualized Citrix platforms, and InTune profiles.",
-        "role-mahindra": "OPERATION: TECH MAHINDRA // Governed ongoing stability matrix across isolated Windows architectures, Citrix sandbox clusters, core Mainframe access links, and Cisco routing networks. Identified critical platform blockages and escalated infrastructure incidents inside ServiceNow grids while producing compliance metrics logs.",
-        "role-compucom": "OPERATION: COMPUCOM // Administered unified hardware support layers across multi-architecture nodes (Windows, iOS, Android endpoints). Generated internal knowledge assets and conducted interactive team training blueprints regarding Active Directory operations, Citrix frameworks, OKTA mapping, and SCCM usage."
+        "role-tideworks": "OPERATION: TIDEWORKS // Leads enterprise Jira Cloud administration blueprints across global engineering segments[cite: 1]. Preserves complete user lifecycle security maps across Active Directory nodes and integrated developer tool licenses[cite: 1]. Manages automated sprint lifecycle schedules, backlog filters, and deploys SSH logic to decrease manual infrastructure routines[cite: 1].",
+        "role-tcs": "OPERATION: TATA CONSULTANCY SERVICES // Dispatched Tier 2 infrastructure core engineering across wide industrial enterprise networks[cite: 1]. Controlled secure authentication keys (Active Directory, RSA tokens, PingID, VPN portals) and deployed application layers over corporate pools via SCCM arrays, virtualized Citrix platforms, and InTune profiles[cite: 1].",
+        "role-mahindra": "OPERATION: TECH MAHINDRA // Governed ongoing stability matrix across isolated Windows architectures, Citrix sandbox clusters, core Mainframe access links, and Cisco routing networks[cite: 1]. Identified critical platform blockages and escalated infrastructure incidents inside ServiceNow grids while producing compliance metrics logs[cite: 1].",
+        "role-compucom": "OPERATION: COMPUCOM // Administered unified hardware support layers across multi-architecture nodes (Windows, iOS, Android endpoints)[cite: 1]. Generated internal knowledge assets and conducted interactive team training blueprints regarding Active Directory operations, Citrix frameworks, OKTA mapping, and SCCM usage[cite: 1]."
     };
 
-    const decryptButtons = document.querySelectorAll('.btn-decrypt');
+    const decryptButtons = document.querySelectorAll('.action-decrypt');
+    const decryptAllBtn = document.getElementById('decrypt-all-btn');
 
-    decryptButtons.forEach(button => {
-        button.addEventListener('click', (e) => {
-            const btn = e.target;
-            const targetId = btn.getAttribute('data-target');
-            const logContainer = document.getElementById(targetId);
-            const fullText = experienceDatabase[targetId];
+    function decryptLog(btn, targetId, instant = false) {
+        const logContainer = document.getElementById(targetId);
+        const fullText = experienceDatabase[targetId];
+        if (!logContainer || !fullText) return;
 
-            if (!logContainer || !fullText) return;
+        btn.textContent = "[ ACCESS GRANTED ]";
+        btn.classList.add('decrypted');
+        logContainer.classList.remove('encrypted');
 
-            // Mark button as activated
-            btn.textContent = "[ ACCESS GRANTED ]";
-            btn.classList.add('decrypted');
-            logContainer.classList.remove('encrypted');
+        if (instant) {
+            logContainer.innerHTML = fullText;
+        } else {
             logContainer.innerHTML = "";
-
-            // Scrambler character animation sequence before text displays
             let scrambleCount = 0;
             const characters = "XX//$$##@@0110_?!";
             
             function runScramble() {
-                if (scrambleCount < 10) {
+                if (scrambleCount < 8) {
                     let temporaryScramble = "";
-                    for(let i=0; i<30; i++) {
+                    for(let i=0; i<20; i++) {
                         temporaryScramble += characters.charAt(Math.floor(Math.random() * characters.length));
                     }
                     logContainer.textContent = temporaryScramble;
                     scrambleCount++;
-                    setTimeout(runScramble, 40);
+                    setTimeout(runScramble, 30);
                 } else {
-                    // Scramble done! Start typewriter output
-                    logContainer.textContent = "";
                     let charIndex = 0;
-                    
                     function typeCharacter() {
                         if (charIndex < fullText.length) {
                             logContainer.innerHTML += fullText.charAt(charIndex);
                             charIndex++;
-                            setTimeout(typeCharacter, 10); // Swift crisp typewriter speeds
+                            setTimeout(typeCharacter, 8);
                         }
                     }
                     typeCharacter();
                 }
             }
             runScramble();
+        }
+    }
+
+    decryptButtons.forEach(button => {
+        button.addEventListener('click', (e) => {
+            const targetId = e.target.getAttribute('data-target');
+            decryptLog(e.target, targetId, false);
         });
     });
+
+    if (decryptAllBtn) {
+        decryptAllBtn.addEventListener('click', () => {
+            decryptButtons.forEach(button => {
+                const targetId = button.getAttribute('data-target');
+                decryptLog(button, targetId, true);
+            });
+            decryptAllBtn.textContent = "[ ALL_LOGS_DECRYPTED ]";
+            decryptAllBtn.style.borderColor = "var(--accent-neon)";
+            decryptAllBtn.style.color = "var(--accent-neon)";
+        });
+    }
 });

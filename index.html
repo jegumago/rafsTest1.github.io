@@ -8,49 +8,82 @@
 </head>
 <body>
 
-<!-- Terminal Boot Sequence Overlay -->
-    <div id="boot-screen">
+    <!-- Dual-Gate Welcome / Gatekeeper Screen -->
+    <div id="gatekeeper-screen">
+        <div class="gatekeeper-container">
+            <h2>SELECT PROFILE ACCESS VIEW MODE</h2>
+            <p class="gatekeeper-subtitle">Please select your background so we can optimize the layout and technical vocabulary for your review.</p>
+            
+            <div class="gatekeeper-options">
+                <!-- HR Track: Smooth, fast, jargon-free -->
+                <button id="gate-hr-btn" class="btn-gate btn-gate-hr">
+                    <span class="gate-title">TALENT ACQUISITION / HR</span>
+                    <span class="gate-desc">Clean typography, standard resume language, auto-unlocked experience logs. No technical gimmicks.</span>
+                </button>
+                
+                <!-- Tech Track: Immersive terminal simulation -->
+                <button id="gate-tech-btn" class="btn-gate btn-gate-tech">
+                    <span class="gate-title">TECHNICAL INTERVIEWER</span>
+                    <span class="gate-desc">Simulated terminal boot engine, terminal matrix inputs, and raw technical configuration nomenclature.</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Terminal Boot Sequence Overlay (Only shown for Tech Track) -->
+    <div id="boot-screen" class="hidden">
+        <button id="skip-boot-btn" class="btn-skip">[ SKIP_BOOT ]</button>
         <div id="boot-log"></div>
-        <!-- House the interactive input & loading bars -->
-        <div id="login-prompt" style="margin-top: 25px;"></div>
+        <div id="login-prompt"></div>
     </div>
 
     <!-- Main Terminal Interface -->
     <div class="container hidden" id="main-ui">
         <div class="scanlines"></div>
         
+        <!-- Access Controls Utility Bar -->
+        <div class="utility-bar staggered-reveal">
+            <button id="hr-mode-btn" class="btn-utility btn-hr-toggle">[ SWITCH TO STANDARD CV ]</button>
+            <button id="toggle-font-btn" class="btn-utility">[ AA_READABLE_FONT ]</button>
+            <button id="toggle-theme-btn" class="btn-utility">[ COLOR_MATRIX: DEFAULT ]</button>
+        </div>
+
         <header class="staggered-reveal">
             <div class="header-glitch">
-                <h1 data-text="JESÚS MARTÍNEZ">JESÚS MARTÍNEZ</h1>
+                <h1 id="cv-name" data-text="JESÚS MARTÍNEZ">JESÚS MARTÍNEZ</h1>
             </div>
-            <p class="subtitle">> Application Specialist // DevOps & Cloud // System Administration</p>
-            <p class="contact-sub">LOC: CDMX // LANG: EN_ADV, ES_NAT // Contact: jegumago@hotmail.com</p>
+            <p id="cv-subtitle" class="subtitle">> Application Specialist // DevOps & Cloud // System Administration</p>
+            <p id="cv-contact" class="contact-sub">LOC: CDMX // LANG: EN_ADV, ES_NAT // Contact: jegumago@hotmail.com</p>
+            
+            <div style="margin-top: 15px;">
+                <a href="Jesus_Martinez_DevOps_final.pdf" download class="btn-decrypt" style="text-decoration: none; display: inline-block; font-weight: bold;">[ DOWNLOAD_RESUME_PDF ]</a>
+            </div>
         </header>
 
-        <!-- Section 1: System Metrics Grid -->
+        <!-- Section 0: System Metrics Grid -->
         <section id="system-status" class="section-card staggered-reveal">
-            <h2>[00] SYSTEM_METRICS</h2>
+            <h2 id="sec0-title">[00] SYSTEM_METRICS</h2>
             <div class="metrics-grid">
                 <div class="metric-card">
-                    <span class="metric-label">EXP_LEVEL</span>
+                    <span id="lbl-exp" class="metric-label">EXP_LEVEL</span>
                     <span class="metric-value">7+ YRS</span>
                 </div>
                 <div class="metric-card">
-                    <span class="metric-label">ZONE_DB</span>
+                    <span id="lbl-zone" class="metric-label">ZONE_DB</span>
                     <span class="metric-value">MX_CITY</span>
                 </div>
                 <div class="metric-card">
-                    <span class="metric-label">SYS_STATUS</span>
+                    <span id="lbl-status" class="metric-label">SYS_STATUS</span>
                     <span class="metric-value status-green" id="sys-status-text">NOMINAL</span>
                 </div>
             </div>
             <button class="btn-overclock" id="overclock-btn">CORE_OVERCLOCK</button>
         </section>
 
-        <!-- Section 2: Cyberpunk Inventory System (Skills) -->
+        <!-- Section 1: Cyberpunk Inventory System (Skills) -->
         <section id="inventory-skills" class="section-card staggered-reveal">
-            <h2>[01] HARDWARE_INVENTORY (SKILLS)</h2>
-            <p class="section-desc">Select an item slot to extract technical metadata and sub-tools.</p>
+            <h2 id="sec1-title">[01] HARDWARE_INVENTORY (SKILLS)</h2>
+            <p id="sec1-desc" class="section-desc">Select an item slot to extract technical metadata and sub-tools.</p>
             
             <div class="inventory-layout">
                 <div class="inventory-grid">
@@ -65,17 +98,21 @@
                 <div class="inventory-display" id="item-display">
                     <h3 id="item-title">Jira_Cloud.cfg</h3>
                     <div class="item-meta">
-                        <span>RARITY: <span class="text-accent" id="item-rarity">LEGENDARY</span></span>
-                        <span>SKILL_LEVEL: <span id="item-level">ADVANCED</span></span>
+                        <span id="lbl-rarity">RARITY: <span class="text-accent" id="item-rarity">LEGENDARY</span></span>
+                        <span id="lbl-level">SKILL_LEVEL: <span id="item-level">ADVANCED</span></span>
                     </div>
                     <p id="item-desc">Advanced Administration profile. Leads global workflows, custom schemas, permission matrices, dashboard design, and cross-functional Agile engineering boards.</p>
                 </div>
             </div>
         </section>
 
-        <!-- Section 3: Contract Log (Experience) -->
+        <!-- Section 2: Contract Log (Experience) -->
         <section id="mission-log" class="section-card staggered-reveal">
-            <h2>[02] CONTRACT_LOG (EXPERIENCE_HISTORY)</h2>
+            <div class="log-section-header">
+                <h2 id="sec2-title">[02] CONTRACT_LOG (EXPERIENCE_HISTORY)</h2>
+                <button id="decrypt-all-btn" class="btn-decrypt">[ DECRYPT_ALL_LOGS ]</button>
+            </div>
+            
             <div class="timeline">
                 <!-- Role 1 -->
                 <div class="timeline-event">
@@ -84,7 +121,7 @@
                         <span class="event-date">2022 - PRESENT</span>
                     </div>
                     <div class="event-subtitle">CORE_DECK // REMOTE</div>
-                    <button class="btn-decrypt" data-target="role-tideworks">[ DECRYPT_DATA ]</button>
+                    <button class="btn-decrypt action-decrypt" data-target="role-tideworks">[ DECRYPT_DATA ]</button>
                     <div class="typewriter-box encrypted" id="role-tideworks">DATA LOCKED // TARGET ACCESS REQUIRED</div>
                 </div>
 
@@ -95,7 +132,7 @@
                         <span class="event-date">2020 - 2022</span>
                     </div>
                     <div class="event-subtitle">INFRA_DECK // GLOBAL_ENTERPRISE</div>
-                    <button class="btn-decrypt" data-target="role-tcs">[ DECRYPT_DATA ]</button>
+                    <button class="btn-decrypt action-decrypt" data-target="role-tcs">[ DECRYPT_DATA ]</button>
                     <div class="typewriter-box encrypted" id="role-tcs">DATA LOCKED // TARGET ACCESS REQUIRED</div>
                 </div>
 
@@ -106,7 +143,7 @@
                         <span class="event-date">2019 - 2020</span>
                     </div>
                     <div class="event-subtitle">VM_DECK // TELEPHONY_MONITOR</div>
-                    <button class="btn-decrypt" data-target="role-mahindra">[ DECRYPT_DATA ]</button>
+                    <button class="btn-decrypt action-decrypt" data-target="role-mahindra">[ DECRYPT_DATA ]</button>
                     <div class="typewriter-box encrypted" id="role-mahindra">DATA LOCKED // TARGET ACCESS REQUIRED</div>
                 </div>
 
@@ -117,7 +154,7 @@
                         <span class="event-date">2019 - 2019</span>
                     </div>
                     <div class="event-subtitle">ENDPOINT_DECK // TRAINING_NODES</div>
-                    <button class="btn-decrypt" data-target="role-compucom">[ DECRYPT_DATA ]</button>
+                    <button class="btn-decrypt action-decrypt" data-target="role-compucom">[ DECRYPT_DATA ]</button>
                     <div class="typewriter-box encrypted" id="role-compucom">DATA LOCKED // TARGET ACCESS REQUIRED</div>
                 </div>
             </div>
