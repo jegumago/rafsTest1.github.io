@@ -18,5 +18,17 @@ This page functions as an interactive technical deck. It includes:
 Whenever you update your portfolio (skills, projects, or metrics), use the following terminal workflow to deploy changes:
 
 1. **Navigate to project folder:**
-```bash
    cd ~/xx/xxxCV1
+
+
+   ### Final Steps to Save & Push
+Once you have created that file:
+
+1. **Save it** in your `~/xx/xxxCV1` directory.
+2. Run your new standard deployment command:
+
+   cd ~/xx/xxxCV1
+   git add .
+   git commit -m ""
+   git push origin master
+
