@@ -33,9 +33,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // ==========================================
-    // 0.5 PAGE RESET TRIGGER (RELOAD PAGE)
-    // ==========================================
+    // RESET ENVIRONMENT CONTROL
     const resetPageBtn = document.getElementById('reset-page-btn');
     if (resetPageBtn) {
         resetPageBtn.addEventListener('click', () => {
@@ -50,9 +48,9 @@ document.addEventListener('DOMContentLoaded', () => {
         "Initializing MARTÍNEZ_CORE security handshake...",
         "Loading access control matrices... DONE",
         "Target profile located: JESÚS MARTÍNEZ // DEVOPS_SPEC",
-        "Syncing skills database assets...",
+        "Syncing metrics and portfolio asset cells...",
         "Bypassing enterprise network firewalls... SUCCESS",
-        "Loading log databases... DATA RETRIEVED (LOCKED)",
+        "Loading historical logs... DATA RETRIEVED (LOCKED)",
         "Handshake complete. Terminal connection stable."
     ];
 
@@ -120,11 +118,20 @@ document.addEventListener('DOMContentLoaded', () => {
                     const agentName = agentInput.value.trim().toUpperCase();
                     agentInput.disabled = true;
                     
+                    const funnyUsernames = [
+                        "NoobMaster69", "SanchosPanza_OS", "CtrlAltDefeat", 
+                        "RootbeerAccess", "SalsaCore_v4", "CyberTaco_95", 
+                        "WubbaLubbaDubDub", "Pickle_Rick_Root", "Lord_Vader_Admin", 
+                        "MartyMcFly_85", "Jon_Snow_Cone", "Kernel_Panic_At_The_Disco"
+                    ];
+                    
+                    const randomTargetId = funnyUsernames[Math.floor(Math.random() * funnyUsernames.length)];
+                    
                     const sequenceDiv = document.createElement('div');
                     sequenceDiv.style.marginTop = "15px";
                     sequenceDiv.innerHTML = `
                         <p>> GREETINGS, AGENT // <span style="color:#fff;">${agentName}</span></p>
-                        <p>TARGET_ID RECOVERY: <span style="color:#fff;">jegumago</span></p>
+                        <p>TARGET_ID RECOVERY: <span style="color:#00ff99;">${randomTargetId}</span></p>
                         <p>ACCESS_KEY: <span id="pass-matrix" style="color:var(--accent-critical);">[ ACCESS_DENIED ]</span></p>
                     `;
                     loginContainer.appendChild(sequenceDiv);
@@ -195,32 +202,20 @@ document.addEventListener('DOMContentLoaded', () => {
         sections.forEach((section, index) => {
             setTimeout(() => {
                 section.classList.add('visible');
-            }, index * 250);
+            }, index * 200);
         });
     }
 
-    // ==========================================
-    // 2. CORE OVERCLOCK TOGGLE
-    // ==========================================
+    // OVERCLOCK MATRIX TOGGLE
     const overclockBtn = document.getElementById('overclock-btn');
-    const statusText = document.getElementById('sys-status-text');
-
     if (overclockBtn) {
         overclockBtn.addEventListener('click', () => {
             document.body.classList.toggle('overclocked');
-            if (document.body.classList.contains('overclocked')) {
-                if (statusText) statusText.textContent = "OVERCLOCKED // UNSTABLE";
-                overclockBtn.textContent = "RESTORE_DEFAULT";
-            } else {
-                if (statusText) statusText.textContent = "NOMINAL";
-                overclockBtn.textContent = "CORE_OVERCLOCK";
-            }
+            overclockBtn.textContent = document.body.classList.contains('overclocked') ? "RESTORE_DEFAULT" : "CORE_OVERCLOCK";
         });
     }
 
-    // ==========================================
-    // 2.5 ACCESSIBILITY & UTILITY CONTROLS
-    // ==========================================
+    // ACCESSIBILITY SWITCHES
     const toggleFontBtn = document.getElementById('toggle-font-btn');
     const toggleThemeBtn = document.getElementById('toggle-theme-btn');
 
@@ -239,7 +234,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ==========================================
-    // 2.6 HR MODE / CORPORATE CV TRANSLATION ENGINE
+    // 2. HR TRANSLATION LEXICON
     // ==========================================
     const hrModeBtn = document.getElementById('hr-mode-btn');
     let isHrMode = false;
@@ -247,9 +242,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const corporateTranslation = {
         cyber: {
             hrBtn: "[ SWITCH TO STANDARD CV ]",
-            subtitle: "> Application Specialist // DevOps & Cloud // System Administration",
-contact: 'LOC: CDMX // LANG: EN_ADV, ES_NAT // NET_LINK: <a href="https://www.linkedin.com/in/jesusmartinezg95/" target="_blank">linkedin.com/in/jesusmartinezg95/</a>',            sec0Title: "[00] SYSTEM_METRICS",
-            lblExp: "EXP_LEVEL", lblZone: "ZONE_DB", lblStatus: "SYS_STATUS",
+            subtitle: "> Application Specialist // Tech Deck // DevOps & Admin",
+            contact: 'LOC: CDMX // LANG: EN_ADV, ES_NAT // NET_LINK: <a href="https://www.linkedin.com/in/jesusmartinezg95/" target="_blank">linkedin.com/in/jesusmartinezg95/</a>',
+            sec0Title: "[00] SYSTEM_METRICS",
+            lblExp: "EXP_LEVEL", lblZone: "ZONE_DB", lblTv: "TICKET_VELOCITY", lblOs: "PRIMARY_OS", lblTool: "ADMIN_TOOL", lblLv: "LEARNING_VECTOR", lblDs: "DOCUMENTATION_SCORE", lblUt: "UPTIME", lblCc: "COFFEE_CONSUMPTION",
             sec1Title: "[01] HARDWARE_INVENTORY (SKILLS)",
             sec1Desc: "Select an item slot to extract technical metadata and sub-tools.",
             lblRarity: "RARITY: ", lblLevel: "SKILL_LEVEL: ",
@@ -257,59 +253,94 @@ contact: 'LOC: CDMX // LANG: EN_ADV, ES_NAT // NET_LINK: <a href="https://www.li
         },
         corporate: {
             hrBtn: "[ SWITCH TO HACKER MODE ]",
-            subtitle: "Application Specialist & Systems Administrator (DevOps / Cloud Integration)",
-            contact: 'Location: Mexico City | Languages: Fluent English, Native Spanish | LinkedIn: <a href="https://www.linkedin.com/in/jesusmartinezg95/" target="_blank">linkedin.com/in/jesusmartinezg95/</a>',            
-            sec0Title: "PROFESSIONAL SUMMARY & METRICS",
-            lblExp: "TOTAL EXPERIENCE", lblZone: "LOCATION", lblStatus: "AVAILABILITY",
-            sec1Title: "CORE TECHNICAL COMPETENCIES (SKILLS)",
-            sec1Desc: "Click on any technology profile asset below to view administrative experience details.",
-            lblRarity: "EXPERIENCE LEVEL: ", lblLevel: "PROFICIENCY: ",
+            subtitle: "Application Specialist & System Administrator (DevOps / Infrastructure Operations)",
+            contact: 'Location: Mexico City | Languages: Fluent English, Native Spanish | LinkedIn: <a href="https://www.linkedin.com/in/jesusmartinezg95/" target="_blank">linkedin.com/in/jesusmartinezg95/</a>',
+            sec0Title: "PROFESSIONAL SUMMARY & OPERATIONAL METRICS",
+            lblExp: "TOTAL EXPERIENCE", lblZone: "LOCATION", lblTv: "TICKET MANAGEMENT", lblOs: "OPERATING SYSTEM BASE", lblTool: "PRIMARY PLATFORM", lblLv: "GROWTH PROFILE", lblDs: "DOCUMENTATION ABILITY", lblUt: "ATTENDANCE RELIABILITY", lblCc: "ENGAGEMENT PROFILE",
+            sec1Title: "CORE TECHNICAL COMPETENCIES (SKILLS Inventory)",
+            sec1Desc: "Click on any technical profile slot to evaluate practical administrative metrics and tool usage descriptions.",
+            lblRarity: "METRIC CLASS: ", lblLevel: "PROFICIENCY ENGINE: ",
             sec2Title: "PROFESSIONAL WORK HISTORY"
         }
     };
 
     const enhancedItemData = {
         jira: {
-            cyberTitle: "Jira_Cloud.cfg", corporateTitle: "Atlassian Jira Cloud Management",
-            cyberRarity: "LEGENDARY", corporateRarity: "Expert / Advanced",
-            cyberLevel: "ADVANCED ADMIN", corporateLevel: "Enterprise Administrator",
-            cyberDesc: "Leads global instance governance. Manages compound cross-functional project boards, workflow transition conditions, permission schemes, and filters for engineering teams.",
-            corporateDesc: "Senior-level Atlassian administration footprint. Responsible for architecture governance, designing complex custom workflows, screen layouts, advanced permission schemes, filters, and cross-functional Agile boards."
+            cyberTitle: "Jira_Cloud.cfg", corporateTitle: "Atlassian Jira Administration",
+            cyberRarity: "SPEC", corporateRarity: "Platform Management Focus",
+            cyberLevel: "PLATFORM_ADMIN", corporateLevel: "Functional Administrator",
+            cyberDesc: "Coordinates platform configuration and user management within Atlassian Jira Cloud. Configures custom workflows, issue fields, security schemes, and Agile project boards to keep engineering squads completely aligned.",
+            corporateDesc: "Coordinates system layout and permission control structures within corporate Atlassian Jira environments. Builds custom issue screens, automated workflow transition filters, and team metrics dashboards to stabilize delivery pipelines."
         },
         linux: {
-            cyberTitle: "Linux_Core.bin", corporateTitle: "Linux Systems Administration",
-            cyberRarity: "EPIC", corporateRarity: "Strong Practitioner",
-            cyberLevel: "SYSADMIN LEVEL", corporateLevel: "Operating Systems Specialist",
-            cyberDesc: "Proficient administrative kernel foundation. Handles environment access, file permissions configurations, system services control, and standalone server environments.",
-            corporateDesc: "Experienced in managing enterprise Red Hat Enterprise Linux (RHEL) and Ubuntu Server environments. Proficient with user access management, standard shell utilities, file permissions, and system services monitoring."
+            cyberTitle: "Linux_Core.bin", corporateTitle: "Linux Infrastructure Support",
+            cyberRarity: "CORE", corporateRarity: "Systems Infrastructure Foundational",
+            cyberLevel: "INFRA_FOUNDATION", corporateLevel: "Operating Systems Practitioner",
+            cyberDesc: "Provides foundational operating system support using Red Hat Enterprise Linux (RHEL) and Ubuntu Server environments. Manages system access permissions, basic shell utilities, and monitors core services to ensure operational stability.",
+            corporateDesc: "Maintains high-availability server performance across Red Hat Enterprise Linux (RHEL) and Ubuntu server distributions. Confirms secure directory layouts, user profile permissions, standard process operations, and background log file maintenance."
         },
         automation: {
-            cyberTitle: "Automation.sh", corporateTitle: "Infrastructure Automation & Scripting",
-            cyberRarity: "EPIC", corporateRarity: "Strong Practitioner",
-            cyberLevel: "88% SYNC", corporateLevel: "Intermediate to Advanced",
-            cyberDesc: "Constructs custom Bash orchestration scripts and idempotent Ansible configuration playbooks to deploy application servers automatically and eliminate operational drag.",
-            corporateDesc: "Focuses on minimizing manual intervention by developing modular shell scripts (Bash) and writing declarative Ansible playbooks to provision and configure remote environments consistently."
+            cyberTitle: "Automation.sh", corporateTitle: "Infrastructure Automation Scripting",
+            cyberRarity: "UTILITY", corporateRarity: "Task Optimization Framework",
+            cyberLevel: "SCRIPT_PRACTITIONER", corporateLevel: "Task Automation Intermediate",
+            cyberDesc: "Develops custom Bash shell scripts and implements modular Ansible playbooks to remove manual drift, configure remote servers consistently, and optimize infrastructure tasks.",
+            corporateDesc: "Mitigates operational errors by creating structured command scripts (Bash) and deploying reusable configuration routines (Ansible playbooks) to accurately set up remote workstation groups."
         },
         identity: {
             cyberTitle: "IAM_Access.key", corporateTitle: "Identity & Access Management (IAM)",
-            cyberRarity: "RARE", corporateRarity: "Intermediate",
-            cyberLevel: "ENTERPRISE PRO", corporateLevel: "Enterprise Security Operations",
-            cyberDesc: "Enforces full secure user lifecycles. Administers Active Directory, OKTA, PingID, and RSA tokens to safely govern provisioning, offboarding, and application group mapping.",
-            corporateDesc: "Manages complete corporate user lifecycles including secure onboarding and offboarding procedures. Proficient with enterprise identity providers such as Active Directory, Okta, PingID, and RSA access tokens."
+            cyberRarity: "SECURE", corporateRarity: "User Lifecycle Governance",
+            cyberLevel: "ACCESS_GOVERNANCE", corporateLevel: "Access Provisioning Specialist",
+            cyberDesc: "Non-expert practitioner handling enterprise user lifecycles. Manages secure onboarding, offboarding, and group mapping permissions across identity providers like Active Directory, Okta, PingID, and RSA tokens.",
+            corporateDesc: "Safely runs standard end-user access workflows throughout employee lifecycles. Handles account onboarding, department shifting, and account closure protocols across Active Directory network groups, Okta layers, and multi-factor authentication tools like PingID and RSA."
         },
         cloud: {
-            cyberTitle: "Cloud_Dev.env", corporateTitle: "Cloud Infrastructure (AWS & IaC)",
-            cyberRarity: "RARE", corporateRarity: "Familiar / Growing",
-            cyberLevel: "IN PROGRESS", corporateLevel: "Active Learning Path",
-            cyberDesc: "Currently sharpening modern delivery patterns. Spinning up modular EC2 compute cells, secure S3 spaces, IAM security configurations, and coding baseline Terraform logic.",
-            corporateDesc: "Actively training and expanding into modern cloud architectures. Hands-on experience creating core Amazon Web Services components like EC2 instances, S3 storage buckets, IAM roles, and basic Terraform configurations."
+            cyberTitle: "Cloud_Dev.env", corporateTitle: "Cloud Services Infrastructure (AWS)",
+            cyberRarity: "VECTOR", corporateRarity: "Active Upskilling Vector",
+            cyberLevel: "ACTIVE_LEARNING (40% & Loading)", corporateLevel: "Technical Advancement Path",
+            cyberDesc: "Currently expanding capabilities into modern cloud architectures. Hands-on learning path focused on building Amazon Web Services (AWS) components like EC2 instances, S3 storage buckets, and basic Terraform infrastructure-as-code deployment scripts.",
+            corporateDesc: "Actively training and extending domain expertise into modern cloud platforms. Exercises hands-on configurations with Amazon Web Services (AWS) infrastructure blocks, including EC2 instances, S3 file trees, security rules, and initial code blueprints via Terraform."
         },
-        infra: {
+        endpoint: {
             cyberTitle: "Endpoint_Mgmt.sys", corporateTitle: "Enterprise Endpoint Infrastructure",
-            cyberRarity: "COMMON", corporateRarity: "Foundational",
-            cyberLevel: "95% COMPLIANT", corporateLevel: "Legacy Systems Expert",
-            cyberDesc: "Managed global enterprise architecture delivery pipelines using tools like SCCM, Citrix hypervisors, InTune profile suites, and ServiceNow SLA monitors.",
-            corporateDesc: "Background managing enterprise application delivery pipelines and remote workstations using systems management tools including Microsoft SCCM, Citrix infrastructure, Intune profiles, and ServiceNow tracking platforms."
+            cyberRarity: "COMMON", corporateRarity: "System Architecture Delivery",
+            cyberLevel: "75% COMPLIANT", corporateLevel: "Systems Management Experienced",
+            cyberDesc: "Foundational systems experience deploying application packages and managing remote enterprise workstations. Works with Microsoft SCCM, Citrix virtualization infrastructure, and Microsoft Intune configuration profiles.",
+            corporateDesc: "Maintains operational consistency across remote distributed computers and employee workstations. Dispatches structured application software setups and upgrades via Microsoft SCCM platforms, Citrix host environments, and Microsoft Intune deployment configuration policies."
+        },
+        agile: {
+            cyberTitle: "Agile_Sprint.log", corporateTitle: "Agile Coordination & Support",
+            cyberRarity: "PROCESS", corporateRarity: "Operational Lifecycle Track",
+            cyberLevel: "PROGRESS: OPTIMIZED", corporateLevel: "Project Structure Coordinator",
+            cyberDesc: "Handles day-to-day agile administrative tasks. Manages sprint board organization, board filters, and documentation spaces inside Confluence to ensure transparent tracking for cross-functional engineering teams.",
+            corporateDesc: "Facilitates scrum methodology organization. Runs administrative data cleanup on delivery boards, audits filter queries, and sets up documentation wikis within Confluence to maintain team record alignment."
+        },
+        service: {
+            cyberTitle: "Service_SLA.cfg", corporateTitle: "ITIL Service Delivery Monitoring",
+            cyberRarity: "SERVICE", corporateRarity: "Enterprise Service Desk",
+            cyberLevel: "PROGRESS: DISCIPLINED", corporateLevel: "Incident & SLA Tracking Specialist",
+            cyberDesc: "Monitors multi-architecture enterprise ticket queues. Efficiently tracks incident response SLAs, provides technical resolution steps, and handles infrastructure escalations within ServiceNow tracking grids.",
+            corporateDesc: "Monitors massive corporate IT ticket inflows to protect operational commitments. Diagnoses technical client bugs, registers response milestones, and routes network bottlenecks correctly inside ServiceNow tracking modules."
+        },
+        excel: {
+            cyberTitle: "Data_Report.xlsx", corporateTitle: "Data Analysis & Excel Reporting",
+            cyberRarity: "ANALYTIC", corporateRarity: "Performance Data Audit",
+            cyberLevel: "PROGRESS: 85% SYNC", corporateLevel: "Advanced Spreadsheet Operations",
+            cyberDesc: "Constructs clean data monitoring structures. Leverages advanced formulas, lookup trees, logic parameters, and formatted spreadsheet grids to track team velocity and isolate infrastructure blockers.",
+            corporateDesc: "Handles corporate performance auditing datasets. Builds formulas, data matrices, and structured charts inside Microsoft Excel to summarize business ticket trends and help managers isolate workflow layout bottlenecks."
+        },
+        webdev: {
+            cyberTitle: "Web_Dev.src", corporateTitle: "Frontend Web Development Foundations",
+            cyberRarity: "INTERFACE", corporateRarity: "Web Application Core Structures",
+            cyberLevel: "PROGRESS: 80% LOADED", corporateLevel: "Frontend UI Competent",
+            cyberDesc: "Writes clean semantic HTML layouts, structural responsive CSS files, and baseline Javascript automation logic to construct fast, scannable browser tools and application frontends.",
+            corporateDesc: "Capable of designing layout code bases using HTML, responsive layout style systems (CSS), and interactive user interface logic (JavaScript) to build clean dashboards and web interfaces."
+        },
+        ai: {
+            cyberTitle: "AI_Leverage.run", corporateTitle: "AI Workflow Optimization & Adaptability",
+            cyberRarity: "ADAPTIVE", corporateRarity: "Proactive Workflow Innovation",
+            cyberLevel: "INTEGRATION_PATH // ACTIVE", corporateLevel: "Continuous Adaptation & Learning",
+            cyberDesc: "Leverages modern generative models to write code faster, audit technical documentation, and accelerate research loops without creating system code dependencies. Strong natural capacity to adapt and adopt modern productivity suites.",
+            corporateDesc: "Actively researches and integrates Artificial Intelligence models directly inside everyday working loops to optimize administrative speed, write scripts faster, and review technical data logs. Focuses on leveraging AI safely to maximize individual throughput without building tool dependencies."
         }
     };
 
@@ -319,16 +350,14 @@ contact: 'LOC: CDMX // LANG: EN_ADV, ES_NAT // NET_LINK: <a href="https://www.li
             const mode = isHrMode ? 'corporate' : 'cyber';
 
             if (isHrMode) {
-                document.body.classList.add('readable-font');
-                document.body.classList.add('high-contrast-mode');
+                document.body.classList.add('readable-font', 'high-contrast-mode');
                 if (toggleFontBtn) toggleFontBtn.textContent = "[ TT_TERMINAL_FONT ]";
                 if (toggleThemeBtn) toggleThemeBtn.textContent = "[ COLOR_MATRIX: DEFAULT ]";
                 
                 const decryptAllBtn = document.getElementById('decrypt-all-btn');
                 if (decryptAllBtn) decryptAllBtn.click();
             } else {
-                document.body.classList.remove('readable-font');
-                document.body.classList.remove('high-contrast-mode');
+                document.body.classList.remove('readable-font', 'high-contrast-mode');
                 if (toggleFontBtn) toggleFontBtn.textContent = "[ AA_READABLE_FONT ]";
                 if (toggleThemeBtn) toggleThemeBtn.textContent = "[ COLOR_MATRIX: DEFAULT ]";
             }
@@ -336,16 +365,21 @@ contact: 'LOC: CDMX // LANG: EN_ADV, ES_NAT // NET_LINK: <a href="https://www.li
             hrModeBtn.textContent = corporateTranslation[mode].hrBtn;
             document.getElementById('cv-subtitle').textContent = corporateTranslation[mode].subtitle;
             document.getElementById('cv-contact').innerHTML = corporateTranslation[mode].contact;
+            
             document.getElementById('sec0-title').textContent = corporateTranslation[mode].sec0Title;
             document.getElementById('lbl-exp').textContent = corporateTranslation[mode].lblExp;
             document.getElementById('lbl-zone').textContent = corporateTranslation[mode].lblZone;
-            document.getElementById('lbl-status').textContent = corporateTranslation[mode].lblStatus;
+            document.getElementById('lbl-tv').textContent = corporateTranslation[mode].lblTv;
+            document.getElementById('lbl-os').textContent = corporateTranslation[mode].lblOs;
+            document.getElementById('lbl-tool').textContent = corporateTranslation[mode].lblTool;
+            document.getElementById('lbl-lv').textContent = corporateTranslation[mode].lblLv;
+            document.getElementById('lbl-ds').textContent = corporateTranslation[mode].lblDs;
+            document.getElementById('lbl-ut').textContent = corporateTranslation[mode].lblUt;
+            document.getElementById('lbl-cc').textContent = corporateTranslation[mode].lblCc;
+            
             document.getElementById('sec1-title').textContent = corporateTranslation[mode].sec1Title;
             document.getElementById('sec1-desc').textContent = corporateTranslation[mode].sec1Desc;
             document.getElementById('sec2-title').textContent = corporateTranslation[mode].sec2Title;
-
-            const statusText = document.getElementById('sys-status-text');
-            if (statusText) statusText.textContent = isHrMode ? "AVAILABLE / ACTIVE" : "NOMINAL";
 
             const slots = document.querySelectorAll('.inv-slot');
             slots.forEach(slot => {
