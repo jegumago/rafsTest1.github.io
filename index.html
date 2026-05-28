@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NETRUNNER // DEVOPS_CORE</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Option 1: Terminal Boot Sequence Overlay -->
+    <div id="boot-screen">
+        <div id="boot-log"></div>
+    </div>
+
+    <!-- Main Terminal Interface (Hidden until boot finishes) -->
+    <div class="container hidden" id="main-ui">
+        <div class="scanlines"></div>
+        
+        <header>
+            <div class="header-glitch">
+                <h1 data-text="RAFS_OS // v2.6">RAFS_OS // v2.6</h1>
+            </div>
+            <p class="subtitle">> DEVOPS & INFRASTRUCTURE ENGINEER // LOC: CDMX</p>
+        </header>
+
+        <!-- Option 2: System Metrics Grid -->
+        <section id="system-status">
+            <h2>[00] SYSTEM_METRICS</h2>
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <span class="metric-label">UPTIME</span>
+                    <span class="metric-value">30 YRS</span>
+                </div>
+                <div class="metric-card">
+                    <span class="metric-label">LOC_DB</span>
+                    <span class="metric-value">MEX_CITY</span>
+                </div>
+                <div class="metric-card">
+                    <span class="metric-label">SYS_STATUS</span>
+                    <span class="metric-value status-green" id="sys-status-text">NOMINAL</span>
+                </div>
+            </div>
+            <button class="btn-overclock" id="overclock-btn">CORE_OVERCLOCK</button>
+        </section>
+
+        <!-- Option 5: Cyberpunk Inventory System -->
+        <section id="inventory-skills">
+            <h2>[01] HARDWARE_INVENTORY (SKILLS)</h2>
+            <p class="section-desc">Select an item from your deck to extract technical metadata.</p>
+            
+            <div class="inventory-layout">
+                <!-- Grid of Items -->
+                <div class="inventory-grid">
+                    <div class="inv-slot active" data-item="ansible">Ansible.cfg</div>
+                    <div class="inv-slot" data-item="docker">Docker.dmg</div>
+                    <div class="inv-slot" data-item="linux">Kernel.bin</div>
+                    <div class="inv-slot" data-item="aws">Cloud.infra</div>
+                    <div class="inv-slot" data-item="git">VCS.git</div>
+                    <div class="inv-slot" data-item="lifecycle">User_Lifecycle.exe</div>
+                </div>
+
+                <!-- Interactive Data Sheet Display -->
+                <div class="inventory-display" id="item-display">
+                    <h3 id="item-title">Ansible.cfg</h3>
+                    <div class="item-meta">
+                        <span>RARITY: <span class="text-accent" id="item-rarity">LEGENDARY</span></span>
+                        <span>EXP_LVL: <span id="item-level">95%</span></span>
+                    </div>
+                    <p id="item-desc">Core configuration engine used to manipulate remote environments, enforce state patterns, and automate deployment orchestrations without agent dependencies.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Option 4: Neo-Noir Quest Log / Mission History -->
+        <section id="mission-log">
+            <h2>[02] CONTRACT_LOG (EXPERIENCE)</h2>
+            <div class="timeline">
+                <div class="timeline-event" data-mission="current">
+                    <div class="event-header">
+                        <span class="event-title">DevOps / IT Operations Specialist</span>
+                        <span class="event-date">2025 - PRESENT</span>
+                    </div>
+                    <div class="event-subtitle">OPERATIONS_DECK // INFRASTRUCTURE_SUPPORT</div>
+                    <div class="typewriter-box" id="mission-current-text">
+                        <!-- Content will be typed out dynamically via JS -->
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
