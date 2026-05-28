@@ -3,38 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NETRUNNER // DEVOPS_CORE</title>
+    <title>NETRUNNER // JESÚS_MARTÍNEZ</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <!-- Option 1: Terminal Boot Sequence Overlay -->
+<!-- Terminal Boot Sequence Overlay -->
     <div id="boot-screen">
         <div id="boot-log"></div>
+        <!-- House the interactive input & loading bars -->
+        <div id="login-prompt" style="margin-top: 25px;"></div>
     </div>
 
-    <!-- Main Terminal Interface (Hidden until boot finishes) -->
+    <!-- Main Terminal Interface -->
     <div class="container hidden" id="main-ui">
         <div class="scanlines"></div>
         
-        <header>
+        <header class="staggered-reveal">
             <div class="header-glitch">
-                <h1 data-text="RAFS_OS // v2.6">RAFS_OS // v2.6</h1>
+                <h1 data-text="JESÚS MARTÍNEZ">JESÚS MARTÍNEZ</h1>
             </div>
-            <p class="subtitle">> DEVOPS & INFRASTRUCTURE ENGINEER // LOC: CDMX</p>
+            <p class="subtitle">> Application Specialist // DevOps & Cloud // System Administration</p>
+            <p class="contact-sub">LOC: CDMX // LANG: EN_ADV, ES_NAT // Contact: jegumago@hotmail.com</p>
         </header>
 
-        <!-- Option 2: System Metrics Grid -->
-        <section id="system-status">
+        <!-- Section 1: System Metrics Grid -->
+        <section id="system-status" class="section-card staggered-reveal">
             <h2>[00] SYSTEM_METRICS</h2>
             <div class="metrics-grid">
                 <div class="metric-card">
-                    <span class="metric-label">UPTIME</span>
-                    <span class="metric-value">30 YRS</span>
+                    <span class="metric-label">EXP_LEVEL</span>
+                    <span class="metric-value">7+ YRS</span>
                 </div>
                 <div class="metric-card">
-                    <span class="metric-label">LOC_DB</span>
-                    <span class="metric-value">MEX_CITY</span>
+                    <span class="metric-label">ZONE_DB</span>
+                    <span class="metric-value">MX_CITY</span>
                 </div>
                 <div class="metric-card">
                     <span class="metric-label">SYS_STATUS</span>
@@ -44,47 +47,78 @@
             <button class="btn-overclock" id="overclock-btn">CORE_OVERCLOCK</button>
         </section>
 
-        <!-- Option 5: Cyberpunk Inventory System -->
-        <section id="inventory-skills">
+        <!-- Section 2: Cyberpunk Inventory System (Skills) -->
+        <section id="inventory-skills" class="section-card staggered-reveal">
             <h2>[01] HARDWARE_INVENTORY (SKILLS)</h2>
-            <p class="section-desc">Select an item from your deck to extract technical metadata.</p>
+            <p class="section-desc">Select an item slot to extract technical metadata and sub-tools.</p>
             
             <div class="inventory-layout">
-                <!-- Grid of Items -->
                 <div class="inventory-grid">
-                    <div class="inv-slot active" data-item="ansible">Ansible.cfg</div>
-                    <div class="inv-slot" data-item="docker">Docker.dmg</div>
-                    <div class="inv-slot" data-item="linux">Kernel.bin</div>
-                    <div class="inv-slot" data-item="aws">Cloud.infra</div>
-                    <div class="inv-slot" data-item="git">VCS.git</div>
-                    <div class="inv-slot" data-item="lifecycle">User_Lifecycle.exe</div>
+                    <div class="inv-slot active" data-item="jira">Jira_Cloud.cfg</div>
+                    <div class="inv-slot" data-item="linux">Linux_Core.bin</div>
+                    <div class="inv-slot" data-item="automation">Automation.sh</div>
+                    <div class="inv-slot" data-item="identity">IAM_Access.key</div>
+                    <div class="inv-slot" data-item="cloud">Cloud_Dev.env</div>
+                    <div class="inv-slot" data-item="infra">Endpoint_Mgmt.sys</div>
                 </div>
 
-                <!-- Interactive Data Sheet Display -->
                 <div class="inventory-display" id="item-display">
-                    <h3 id="item-title">Ansible.cfg</h3>
+                    <h3 id="item-title">Jira_Cloud.cfg</h3>
                     <div class="item-meta">
                         <span>RARITY: <span class="text-accent" id="item-rarity">LEGENDARY</span></span>
-                        <span>EXP_LVL: <span id="item-level">95%</span></span>
+                        <span>SKILL_LEVEL: <span id="item-level">ADVANCED</span></span>
                     </div>
-                    <p id="item-desc">Core configuration engine used to manipulate remote environments, enforce state patterns, and automate deployment orchestrations without agent dependencies.</p>
+                    <p id="item-desc">Advanced Administration profile. Leads global workflows, custom schemas, permission matrices, dashboard design, and cross-functional Agile engineering boards.</p>
                 </div>
             </div>
         </section>
 
-        <!-- Option 4: Neo-Noir Quest Log / Mission History -->
-        <section id="mission-log">
-            <h2>[02] CONTRACT_LOG (EXPERIENCE)</h2>
+        <!-- Section 3: Contract Log (Experience) -->
+        <section id="mission-log" class="section-card staggered-reveal">
+            <h2>[02] CONTRACT_LOG (EXPERIENCE_HISTORY)</h2>
             <div class="timeline">
-                <div class="timeline-event" data-mission="current">
+                <!-- Role 1 -->
+                <div class="timeline-event">
                     <div class="event-header">
-                        <span class="event-title">DevOps / IT Operations Specialist</span>
-                        <span class="event-date">2025 - PRESENT</span>
+                        <span class="event-title">Application Specialist // Tideworks</span>
+                        <span class="event-date">2022 - PRESENT</span>
                     </div>
-                    <div class="event-subtitle">OPERATIONS_DECK // INFRASTRUCTURE_SUPPORT</div>
-                    <div class="typewriter-box" id="mission-current-text">
-                        <!-- Content will be typed out dynamically via JS -->
+                    <div class="event-subtitle">CORE_DECK // REMOTE</div>
+                    <button class="btn-decrypt" data-target="role-tideworks">[ DECRYPT_DATA ]</button>
+                    <div class="typewriter-box encrypted" id="role-tideworks">DATA LOCKED // TARGET ACCESS REQUIRED</div>
+                </div>
+
+                <!-- Role 2 -->
+                <div class="timeline-event">
+                    <div class="event-header">
+                        <span class="event-title">Assistant Systems Engineer L1.5 // TCS</span>
+                        <span class="event-date">2020 - 2022</span>
                     </div>
+                    <div class="event-subtitle">INFRA_DECK // GLOBAL_ENTERPRISE</div>
+                    <button class="btn-decrypt" data-target="role-tcs">[ DECRYPT_DATA ]</button>
+                    <div class="typewriter-box encrypted" id="role-tcs">DATA LOCKED // TARGET ACCESS REQUIRED</div>
+                </div>
+
+                <!-- Role 3 -->
+                <div class="timeline-event">
+                    <div class="event-header">
+                        <span class="event-title">Tech Support Level I // Tech Mahindra</span>
+                        <span class="event-date">2019 - 2020</span>
+                    </div>
+                    <div class="event-subtitle">VM_DECK // TELEPHONY_MONITOR</div>
+                    <button class="btn-decrypt" data-target="role-mahindra">[ DECRYPT_DATA ]</button>
+                    <div class="typewriter-box encrypted" id="role-mahindra">DATA LOCKED // TARGET ACCESS REQUIRED</div>
+                </div>
+
+                <!-- Role 4 -->
+                <div class="timeline-event">
+                    <div class="event-header">
+                        <span class="event-title">Service Experience // Compucom</span>
+                        <span class="event-date">2019 - 2019</span>
+                    </div>
+                    <div class="event-subtitle">ENDPOINT_DECK // TRAINING_NODES</div>
+                    <button class="btn-decrypt" data-target="role-compucom">[ DECRYPT_DATA ]</button>
+                    <div class="typewriter-box encrypted" id="role-compucom">DATA LOCKED // TARGET ACCESS REQUIRED</div>
                 </div>
             </div>
         </section>

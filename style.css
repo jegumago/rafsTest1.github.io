@@ -5,10 +5,9 @@
     --text-primary: #38bdf8; /* Neon Cyan */
     --text-muted: #64748b;
     --accent-neon: #4ade80;  /* Neon Green */
-    --accent-critical: #f43f5e; /* Cyber Punk Red */
+    --accent-critical: #f43f5e; /* Cyberpunk Red */
 }
 
-/* Base Body Styles */
 body {
     background-color: var(--bg-base);
     color: var(--text-primary);
@@ -18,15 +17,9 @@ body {
     overflow-x: hidden;
 }
 
-.container {
-    max-width: 900px;
-    margin: 0 auto;
-    position: relative;
-}
-
+.container { max-width: 900px; margin: 0 auto; position: relative; }
 .hidden { display: none !important; }
 
-/* Scanlines overlay effect */
 .scanlines {
     position: fixed;
     top: 0; left: 0; width: 100%; height: 100%;
@@ -36,7 +29,6 @@ body {
     pointer-events: none;
 }
 
-/* Boot Screen Overlay */
 #boot-screen {
     position: fixed;
     top: 0; left: 0; width: 100vw; height: 100vh;
@@ -49,7 +41,6 @@ body {
     overflow-y: auto;
 }
 
-/* Typography Headers */
 h1, h2, h3 { color: #fff; margin: 0 0 10px 0; }
 h2 {
     font-size: 1.3rem;
@@ -59,7 +50,13 @@ h2 {
     margin-top: 40px;
 }
 
-/* Option 2: System Metrics Styling */
+.contact-sub {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    margin-top: -5px;
+}
+
+/* Metrics */
 .metrics-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
@@ -93,7 +90,7 @@ h2 {
     box-shadow: 0 0 15px var(--accent-critical);
 }
 
-/* Option 5: Cyberpunk Inventory System Layout */
+/* Inventory Layout */
 .inventory-layout {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -139,36 +136,110 @@ h2 {
 }
 .text-accent { color: var(--accent-neon); }
 
-/* Option 4: Contract/Mission Timeline Layout */
+/* Experience Contract Logs */
 .timeline-event {
     background: var(--bg-card);
     border: 1px solid var(--border-color);
     border-left: 3px solid var(--text-primary);
     padding: 20px;
     margin-top: 25px;
+    position: relative;
 }
-.event-header {
-    display: flex;
-    justify-content: space-between;
-    font-weight: bold;
-}
-.event-subtitle {
-    font-size: 0.85rem;
-    color: var(--text-muted);
-    margin-bottom: 15px;
-}
+.event-header { display: flex; justify-content: space-between; font-weight: bold; }
+.event-subtitle { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 15px; }
+
 .typewriter-box {
     font-size: 0.9rem;
     line-height: 1.6;
     color: #e2e8f0;
+    margin-top: 15px;
+    padding-top: 10px;
+}
+.typewriter-box.encrypted {
+    color: var(--text-muted);
+    font-style: italic;
+    border-top: 1px dashed #202b3c;
 }
 
-/* Overclock Themes Override Mechanics via JS */
+/* Decrypt Button Styles */
+.btn-decrypt {
+    background: #111827;
+    border: 1px solid var(--text-primary);
+    color: var(--text-primary);
+    font-family: 'Courier New', Courier, monospace;
+    padding: 5px 12px;
+    font-size: 0.8rem;
+    cursor: pointer;
+    margin-top: 5px;
+    transition: all 0.2s ease;
+}
+.btn-decrypt:hover {
+    background: var(--text-primary);
+    color: #000;
+    box-shadow: 0 0 10px var(--text-primary);
+}
+.btn-decrypt.decrypted {
+    border-color: var(--accent-neon);
+    color: var(--accent-neon);
+    background: transparent;
+    pointer-events: none;
+}
+
+/* Overclock Styles Override */
 body.overclocked {
     --text-primary: var(--accent-critical);
     --border-color: #5b1c2a;
-    --accent-neon: #f59e0b; /* Changes secondary highlight to amber alert */
+    --accent-neon: #f59e0b;
 }
-body.overclocked .inventory-display {
-    border-color: var(--accent-critical);
+body.overclocked .inventory-display { border-color: var(--accent-critical); }
+body.overclocked .btn-decrypt { border-color: var(--accent-critical); color: var(--accent-critical); }
+body.overclocked .btn-decrypt:hover { background: var(--accent-critical); color: #000; }
+
+/* Blinking prompt for the Enter listener */
+.blink-prompt {
+    color: var(--accent-critical);
+    font-weight: bold;
+    animation: terminal-blink 1s infinite;
+    margin-top: 20px;
+}
+
+@keyframes terminal-blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+}
+
+/* Hacker Terminal Input Styling */
+.terminal-input-line {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.terminal-input {
+    background: transparent;
+    border: none;
+    color: var(--accent-neon);
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 1rem;
+    outline: none;
+    width: 100%;
+}
+
+/* Loading Bar Layout */
+.loading-bar-container {
+    margin-top: 15px;
+    font-weight: bold;
+}
+
+/* Staggered Section Reveals */
+.staggered-reveal {
+    opacity: 0;
+    transform: translateY(15px);
+    transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.staggered-reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
 }
